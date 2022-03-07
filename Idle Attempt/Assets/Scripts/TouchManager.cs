@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 //credit for dragging world
 //https://www.youtube.com/watch?v=qbl38iPitVY
@@ -28,6 +29,9 @@ public class TouchManager : MonoBehaviour
     public float zoomOutMin = 1;
     public float zoomOutMax = 8;
 
+    //visualize
+    public GameObject[] visualizers;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,13 @@ public class TouchManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //visualize
+        for(int i = 0; i < Input.touchCount; i++)
+        {
+            Touch touch = Input.GetTouch(i);
+            visualizers[i].transform.position = new Vector3(touch.position.x, touch.position.y + 200, transform.position.z);
+        }
+
         //prime and check timers when finger touches screen
         timer += Time.deltaTime;
 
